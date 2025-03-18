@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demonstration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: larger;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #6e5656;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px; /* Adjusts based on content */
+            display: flex;
+            flex-direction: column; /* Ensures h1 and h2 are stacked */
+            align-items: center; /* Centers content */
+            padding: 10px 0;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .header h1, .header h2 {
+            color: white;
+            margin: 5px 0;
+            font-size: larger;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #333;
+            position: fixed;
+            top: 83px; /* Adjusted to be below the header */
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: left;
+            display: none;
+            margin-top: 200px; /* Adjusted to be below the fixed header and navbar */
+        }
+
+        .active {
+            display: block;
+        }
+
+        .button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 18px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin: 20px auto; /* Center button */
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .simplex-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        width: 80%;
+        margin: auto;
+        }
+
+        .tv {
+            width: 500px;
+            z-index: 1;
+        }
+
+        .remote {
+            width: 250px;
+            position: relative;
+            right: 0; /* Shift remote to right */
+        }
+
+        .redLineSimplex {
+            position: absolute;
+            height: 5px;
+            border: 1px solid rgb(20, 174, 212);
+            background-color: rgb(156, 148, 148);
+            width: 0;
+            top: 50%;
+            left: 90%; /* Start from near the remote */
+            transition: left 1s ease-in-out, width 1s ease-in-out;
+        }
+
+        /* .half duplex  */
+        .half-duplex {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .half-duplex-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            width: 90%;
+            margin: auto;
+        }
+
+        .satellite {
+            width: 450px;
+            height: auto;
+            margin-top: 10px;
+            margin-left: 10px;
+            transform: rotate(70deg);
+            position: relative;
+            z-index:1;
+        }
+
+        .station {
+            width: 550px;
+            height: auto;
+            position: relative;
+            margin-left: auto;
+        }
+
+        .red-line-h1 {
+            position: absolute;
+            height: 5px;
+            border: #333;
+            background-color: rgb(27, 90, 185);
+            width: 0;
+            top: 55%;
+            left: 11%;
+            transition: width 1s ease-in-out;
+        }
+
+        .red-line-h2 {
+            position: absolute;
+            height: 5px;
+            border: rgb(56, 178, 248);
+            background-color: red;
+            width: 0;
+            top: 55%;
+            right: 11%;
+            transition: width 1s ease-in-out;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px; /* Reduce margin between buttons and images */
+        }
+
+
+        .button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 20px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        /* full duplex  */
+        .full-duplex-container {
+        position: relative;
+        width: 80%;
+        margin: auto;
+        text-align: center; /* Centers images */
+    }
+
+.pho1 {
+    position: absolute;
+    left: 1px;
+    width: 700px;
+    height: 550px;
+    z-index: 1;
+}
+
+.pho2 {
+    position: absolute;
+    right: 15px;
+    width: 700px;
+    height: 550px;
+}
+
+.line {
+    position: absolute;
+    height: 5px;
+    width: 0; /* Center the line */
+    transition: left 1s ease-in-out, width 1s ease-in-out;
+}
+
+#left-to-right {
+    right: 80%;
+    top: 220px; /* Original position */
+    background-color: rgb(21, 144, 216);
+}
+
+#right-to-left {
+    left: 80%;
+    top: calc(220px + 50px); /* 50px below the left-to-right line */
+    background-color: rgb(248, 10, 10);
+}
+
+
+.full-duplex-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Reduce space between buttons */
+    margin-top: 550px;
+}
+
+
+
+
+    </style>
+    <script>
+        function showSection(sectionId) {
+            let sections = document.getElementsByClassName("content");
+            for (let section of sections) {
+                section.classList.remove("active");
+            }
+            document.getElementById(sectionId).classList.add("active");
+        }
+
+        function startSimplex() {
+            let redLine = document.getElementById("redLineSimplex");
+
+            // Reset line before starting animation
+            redLineSimplex.style.transition = "none"; // Disable transition for instant reset
+            redLineSimplex.style.left = "90%"; // Reset to starting position
+            redLineSimplex.style.width = "0"; 
+
+            // Allow time for reset before animating
+            setTimeout(() => {
+                redLineSimplex.style.transition = "left 1s ease-in-out, width 1s ease-in-out"; // Restore transition
+                redLineSimplex.style.left = "25%"; // Move left (TV side)
+                redLineSimplex.style.width = "65%"; // Extend width smoothly
+            }, 100); // Short delay to ensure reset happens before animation
+        }
+
+        function startHalfduplexH1() {
+    let line1 = document.getElementById("red-line-h1");
+    let line2 = document.getElementById("red-line-h2");
+
+    // Ensure the second line is hidden before starting
+    line2.style.width = "0";
+    line2.style.opacity = "0"; // Make it invisible
+
+    // Animate the first line
+    line1.style.width = "74%";
+    line1.style.opacity = "1"; // Ensure it's visible
+}
+
+function startHalfduplexH2() {
+    let line1 = document.getElementById("red-line-h1");
+    let line2 = document.getElementById("red-line-h2");
+
+    // Ensure the first line is hidden before starting
+    line1.style.width = "0";
+    line1.style.opacity = "0"; // Make it invisible
+
+    // Animate the second line
+    line2.style.width = "74%";
+    line2.style.opacity = "1"; // Ensure it's visible
+}
+
+
+        function startFullDuplexLeftToRight() {
+            let line = document.getElementById("left-to-right");
+            
+            // Reset and animate
+            line.style.transition = "none";
+            line.style.left = "5%";
+            line.style.width = "0";
+
+            setTimeout(() => {
+                line.style.transition = "left 1s ease-in-out, width 1s ease-in-out";
+                line.style.left = "80%";
+                line.style.width = "70%";
+            }, 100);
+        }
+
+        function startFullDuplexRightToLeft() {
+            let line = document.getElementById("right-to-left");
+
+            // Reset and animate
+            line.style.transition = "none";
+            line.style.left = "80%";
+            line.style.width = "0";
+
+            setTimeout(() => {
+                line.style.transition = "left 1s ease-in-out, width 1s ease-in-out";
+                line.style.left = "10%";
+                line.style.width = "70%";
+            }, 100);
+        }
+        function startFullDuplexLeftToRight() {
+    let line = document.getElementById("left-to-right");
+
+    if (!line) {
+        console.error("Left-to-right line not found!");
+        return;
+    }
+
+    line.style.transition = "none";
+    line.style.left = "10%";
+    line.style.width = "0";
+    line.style.opacity = "1"; // Ensure it's visible before animation
+
+    setTimeout(() => {
+        line.style.transition = "left 1s ease-in-out, width 1s ease-in-out";
+        line.style.right = "10%";
+        line.style.width = "70%";
+
+        // Hide the line after animation
+        setTimeout(() => {
+            line.style.opacity = "1"; // Make the line invisible
+        }, 1000); // 1s = same duration as animation
+    }, 100);
+}
+
+function startFullDuplexRightToLeft() {
+    let line = document.getElementById("right-to-left");
+
+    if (!line) {
+        console.error("Right-to-left line not found!");
+        return;
+    }
+
+    line.style.transition = "none";
+    line.style.left = "80%";
+    line.style.width = "0";
+    line.style.opacity = "1"; // Ensure it's visible before animation
+
+    setTimeout(() => {
+        line.style.transition = "left 1s ease-in-out, width 1s ease-in-out";
+        line.style.left = "10%";
+        line.style.width = "70%";
+
+        // Hide the line after animation
+        setTimeout(() => {
+            line.style.opacity = "1"; // Make the line invisible
+        }, 1000); // 1s = same duration as animation
+    }, 100);
+}
+
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Demonstration</h1>
+        <h2>of Modes of Communication</h2>
+    </div>
+
+    <div class="navbar">
+        <a href="#" onclick="showSection('simplex')">Simplex</a>
+        <a href="#" onclick="showSection('half-duplex')">Half-Duplex</a>
+        <a href="#" onclick="showSection('full-duplex')">Full-Duplex</a>
+    </div>
+
+    <div id="simplex" class="content active">
+        <div class="simplex-container">
+            <img src="stunning-mountain-landscape-disp-removebg-preview.png" alt="TV" class="tv">
+
+            <div class="redLineSimplex" id="redLineSimplex"></div>
+            
+            <img src="hand-642138_640-removebg-preview.png" alt="Remote" class="remote">
+            
+        </div>
+    
+        <!-- Button to trigger animation -->
+        <button class="button" onclick="startSimplex()">Try It</button>
+        
+    </div>
+    
+
+    <div id="half-duplex" class="content">
+        <div class="half-duplex-container">
+            <img src="satellite-removebg-preview.png" alt="Satellite" class="satellite">
+            <div class="red-line-h1" id="red-line-h1"></div>
+            <div class="red-line-h2" id="red-line-h2"></div>
+            <img src="satellite_station-removebg-preview.png" alt="Satellite Station" class="station">
+        </div>
+
+        <div class="button-container">
+            <button class="button" onclick="startHalfduplexH1()">Satellite</button>
+            <button class="button" onclick="startHalfduplexH2()">Satellite Station</button>
+        </div>
+    </div>
+
+
+    <div id="full-duplex" class="content">
+        <div class="full-duplex-container">
+            <img src="ph left.png" alt="Phone 1" class="pho1">
+            
+            <!-- Red lines -->
+            <div class="line" id="left-to-right"></div>
+            <div class="line" id="right-to-left"></div>
+    
+            <img src="ph right.png" alt="Phone 2" class="pho2">
+        </div>
+    
+        <div class="full-duplex-buttons">
+            <button class="button" onclick="startFullDuplexLeftToRight()">User1</button>
+            <button class="button" onclick="startFullDuplexRightToLeft()">User2</button>
+        </div>
+    </div>
+    
+
+</body>
+</html>

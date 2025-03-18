@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Communication Modes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: larger;
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            background-color: #6e5656;
+            position: fixed; /* Stays fixed at the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+            z-index: 1000; /* Ensures it stays above content */
+        }
+        .header h1 {
+            color: white;
+        }
+        .navbar {
+            background-color: #333;
+            position: fixed; /* Stays fixed at the top */
+            top: 100px; /* Adjusted to be below the header */
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+            z-index: 1000; /* Ensures it stays above content */
+        }
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            padding: 20px;
+            text-align: left;
+            display: none;
+            margin-top: 150px; /* Adjusted to be below the fixed header and navbar */
+        }
+        .active {
+            display: block;
+        }
+        .sim_img{
+            display: block;
+            width: 25%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .bulletin{
+            list-style-type: disc;
+        }
+        .button{
+        background-color: brown;
+        color: black;
+        border-radius: 5px;
+        display: block;
+        margin: 0 auto;
+        }
+        .button {
+            background-color: #007BFF; /* Attractive blue color */
+            color: white; /* White text */
+            font-size: 18px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+        }
+        .button:hover {
+            background-color: #0056b3; /* Darker blue */
+            transform: scale(1.05); /* Slightly bigger */
+        }       
+
+        #practice {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 200px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .mode {
+            background: #e0f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .mode h2 {
+            color: #00796b;
+        }
+        .mode h3 {
+            color: #004d40;
+        }
+        .mode input {
+            padding: 10px;
+            width: 80%;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .mode button {
+            padding: 10px 15px;
+            background: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .mode button:hover {
+            background: #004d40;
+        }
+        .output {
+            background: #ffffff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            min-height: 30px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function showSection(sectionId) {
+            let sections = document.getElementsByClassName("content");
+            for (let section of sections) {
+                section.classList.remove("active");
+            }
+            document.getElementById(sectionId).classList.add("active");
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Modes of Communication</h1>
+    </div>
+    
+    <div class="navbar">
+        <a href="#" onclick="showSection('simplex')">Simplex</a>
+        <a href="#" onclick="showSection('half-duplex')">Half-Duplex</a>
+        <a href="#" onclick="showSection('full-duplex')">Full-Duplex</a>
+        <a href="#" onclick="showSection('practice')">Practice</a>
+    </div>
+
+    <div id="simplex" class="content active">
+        <h2 id="simplex">Simplex Mode</h2>
+        <p>In Simplex mode, Data flows in one direction only, with the sender transmitting 
+            and the receiver only receiving. It is simple and cost-effective but lacks feedback and
+             error correction. This makes it inefficient for interactive communication. </p>
+        <p>Example: Keyboard and traditional monitors. The keyboard can only introduce
+             input, the monitor can only give the output. </p>
+             <br>
+         <img src="https://media.geeksforgeeks.org/wp-content/uploads/SiMpleduplex.png" class="sim_img">
+        
+         <h2>Advantages of Simplex Mode</h2>
+        <ul class="bulletin">
+            <li>Simplex mode is the easiest and most reliable mode of communication.</li>
+            <li>It is the most cost-effective mode, as it only requires one communication channel.</li>
+            <li>There is no need for coordination between the transmitting and receiving devices, which simplifies the communication process.</li>
+            <li>Simplex mode is particularly useful in situations where feedback or response is not required, such as broadcasting or surveillance.</li>
+        </ul>
+        <h2>Disadvantages of Simplex Mode</h2>
+        <ul class="bulletin">
+            <li>Only one-way communication is possible.</li>
+            <li>There is no way to verify if the transmitted data has been received correctly.</li>
+            <li>Simplex mode is not suitable for applications that require bidirectional communication.</li>
+        </ul>
+        <a href="index2.html">
+            <button class="button">Try It</button>
+        </a>
+        </div>
+
+        <div id="half-duplex" class="content">
+        <h2 id="half-duplex">Half-Duplex Mode</h2>
+        <p>Data flows in both directions, but only one direction at a time,
+             requiring turn-taking. It is more efficient than simplex but slower 
+             than full-duplex due to delays.
+             Data collisions may occur if not managed properly.</p>
+        <p>Example: Walkie-talkie in which message is sent one at a time 
+            and messages are sent in both directions. </p>
+            <br>
+        <img src="https://media.geeksforgeeks.org/wp-content/uploads/halfduplex.png" class="sim_img">
+        <br>
+        <h2>Advantages of Half Duplex Mode</h2>
+        <ul class="bulletin">
+            <li>Allows bidirectional communication, making it more versatile than simplex mode.</li>
+            <li>More efficient than simplex, as the same channel is used for both sending and receiving.</li>
+            <li>Less expensive than full-duplex, as it only requires one communication channel.</li>
+        </ul>
+        <h2>Disadvantages of Half Duplex Mode</h2>
+        <ul class="bulletin">
+            <li>Only one device can transmit at a time, leading to delays in communication.</li>
+            <li>Slower than full-duplex, as each device must wait for the other to finish.</li>
+            <li>Potential data collisions, requiring protocols to manage turn-taking</li>
+        </ul>
+        <a href="index2.html">
+            <button class="button">Try It</button>
+        </a>
+        </div>
+
+        <div id="full-duplex" class="content">
+        <h2 id="full-duplex">Full-Duplex Mode</h2>
+        <p>Data flows simultaneously in both directions, enabling real-time
+             communication. It is fast and efficient but requires more bandwidth
+              and complex hardware.
+             While it reduces delays, it is costlier to implement.</p>
+        <p>Example: Telephone Network in which there is communication between two persons by a telephone line, 
+            through which both can talk and listen at the same time.</p> <br>
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/fullduplex.png" class="sim_img">
+
+        <h2>Advantages of Full-Duplex Mode</h2>
+        <ul class="bulletin">
+            <li>Enables simultaneous bidirectional communication, allowing real-time interaction.</li>
+            <li>Faster and more efficient than simplex and half-duplex, reducing delays.</li>
+            <li>Improves overall network performance, as both parties can communicate without waiting.</li>
+        </ul>
+
+        <h2>Disadvantages of Full-Duplex Mode</h2>
+        <ul class="bulletin">
+            <li>More expensive, as it requires advanced hardware and two separate channels.</li>
+            <li>Higher bandwidth consumption, which may lead to network congestion.</li>
+            <li>Complex implementation, requiring better infrastructure and management.</li>
+        </ul>
+        <a href="index2.html">
+            <button class="button">Try It</button>
+        </a>
+        </div>
+
+
+        <div id="practice" class="content">
+            <h2>Practice</h2>
+            <p>Try interacting with the practice section below.</p>
+            
+            <div class="mode">
+                <h2>Simplex Mode Practice</h2>
+                <h3>(Only one-way communication.)</h3>
+                <input type="text" id="simplexInput" placeholder="Enter message...">
+                <button onclick="simplexSend()">Send</button>
+                <div class="output" id="simplexOutput"></div>
+            </div>
+            
+            <div class="mode">
+                <h2>Half-Duplex Mode Practice</h2>
+                <h3>(Only one device can transmit at a time.)</h3>
+                <input type="text" id="halfInput" placeholder="User 1 Message">
+                <button onclick="halfSend(1)">User 1 Send</button>
+                <input type="text" id="halfInput2" placeholder="User 2 Message">
+                <button onclick="halfSend(2)">User 2 Send</button>
+                <div class="output" id="halfOutput"></div>
+            </div>
+            
+            <div class="mode">
+                <h2>Full-Duplex Mode Practice</h2>
+                <h3>(Data can flow simultaneously in both directions.)</h3>
+                <input type="text" id="fullInput1" placeholder="User 1 Message">
+                <button onclick="fullSend(1)">Send</button>
+                <input type="text" id="fullInput2" placeholder="User 2 Message">
+                <button onclick="fullSend(2)">Send</button>
+                <div class="output" id="fullOutput"></div>
+            </div>
+        </div>
+
+    <script>
+        function simplexSend() {
+            let message = document.getElementById("simplexInput").value;
+            document.getElementById("simplexOutput").innerText = "Sent: " + message;
+        }
+
+        let turn = 1;
+        function halfSend(user) {
+            if (user === turn) {
+                let message = user === 1 ? document.getElementById("halfInput").value : document.getElementById("halfInput2").value;
+                document.getElementById("halfOutput").innerText = "User " + user + " says: " + message;
+                turn = turn === 1 ? 2 : 1;
+            } else {
+                alert("Wait for your turn!");
+            }
+        }
+
+        function fullSend(user) {
+            let message = user === 1 ? document.getElementById("fullInput1").value : document.getElementById("fullInput2").value;
+            let output = document.getElementById("fullOutput");
+            output.innerHTML += "User " + user + " says: " + message + "<br>";
+        }
+    </script>
+</body>
+</html>
